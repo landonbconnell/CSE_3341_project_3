@@ -1,0 +1,7 @@
+procedure c6 is
+	object x;
+begin
+	x = new object(1);
+	x[0] = 5;
+	out(x[0]);
+end

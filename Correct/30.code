@@ -1,0 +1,14 @@
+procedure c30 is
+	object x;
+	object y;
+	object z;
+begin
+	x = new object(1);
+	y : x;
+	z : y;
+	x = 64;
+	while not z == 0 and y == 0 do
+		x = x-1;
+		out(x);
+	end
+end

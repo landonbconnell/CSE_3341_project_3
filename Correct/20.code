@@ -1,0 +1,13 @@
+procedure c20 is
+	object x;
+	object y;
+	object z;
+begin
+	x = new object(1);
+	y = new object(1);
+	z = new object(1);
+	x = 5;
+	y = 10;
+	z = x - y * 5 - 5;
+	out(z);
+end

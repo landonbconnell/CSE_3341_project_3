@@ -1,0 +1,6 @@
+procedure e03 is
+	object x;
+begin
+	x = new object(5);
+	x[5] = 1;
+end

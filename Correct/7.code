@@ -1,0 +1,7 @@
+procedure c7 is
+begin
+	object x;
+	x = new object(5);
+	x[3] = 5;
+	out(x[3]);
+end

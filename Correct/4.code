@@ -1,0 +1,10 @@
+procedure c4 is
+	integer y;
+begin
+	integer x;
+	x=in();
+	while not x == 9 do
+		out(10);
+		x=in();
+	end
+end
