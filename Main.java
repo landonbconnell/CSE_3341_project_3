@@ -17,8 +17,5 @@ class Main {
 
         // Run the semantic checker.
         executor.run(parser.procedure);
-
-        // Print the program from the parse tree.
-        parser.procedure.printer();
     }
 }

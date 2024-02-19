@@ -57,21 +57,21 @@ public class Stmt {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
+    void execute() {
         if (assign != null) {
             assign.check();
         } else if (if_stmt != null) {
             SemanticChecker.pushNewScope(); // Pushing if-statement scope
-            if_stmt.check();
+            //if_stmt.check();
             SemanticChecker.popScope(); // Popping if-statement scope
         } else if (loop != null) {
             SemanticChecker.pushNewScope(); // Pushing while-loop scope
-            loop.check();
+            //loop.check();
             SemanticChecker.popScope(); // Popping while-loop scope
         } else if (out != null) {
-            out.check();
+            out.execute();
         } else if (decl != null) {
-            decl.check();
+            //decl.check();
         }
     }
 }

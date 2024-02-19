@@ -30,10 +30,10 @@ public class StmtSeq {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
-        stmt.check();
+    void execute() {
+        stmt.execute();
         if (stmt_seq != null) {
-            stmt_seq.check();
+            stmt_seq.execute();
         }
     }
 }

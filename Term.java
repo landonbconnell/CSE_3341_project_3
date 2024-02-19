@@ -1,7 +1,7 @@
 public class Term {
     
     Factor factor;
-    char operator;
+    Character operator;
     Term term;
 
     /**
@@ -34,8 +34,18 @@ public class Term {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
-        factor.check();
-        if (term != null) term.check();
+    int execute() {
+
+        int value = factor.execute();
+
+        if (operator != null) {
+            if (operator == '*') {
+                value *= term.execute();
+            } else {
+                value /= term.execute();
+            }
+        } 
+        
+        return value;
     }
 }

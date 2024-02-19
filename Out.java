@@ -24,7 +24,8 @@ public class Out {
     }
 
     // Performs a semantic check on a non-terminal lower in the parse tree.
-    void check() {
-        expr.check();
+    void execute() {
+        int value = expr.execute();
+        System.out.println(value);
     }
 }

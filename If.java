@@ -46,13 +46,13 @@ public class If {
         System.out.println("end");
     }
 
-    // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
-        cond.check();
-        stmt_seq1.check();
+    // // Performs a semantic check on non-terminals lower in the parse tree
+    // void check() {
+    //     cond.check();
+    //     stmt_seq1.check();
 
-        if (stmt_seq2 != null) {
-            stmt_seq2.check();
-        }
-    }
+    //     if (stmt_seq2 != null) {
+    //         stmt_seq2.check();
+    //     }
+    // }
 }

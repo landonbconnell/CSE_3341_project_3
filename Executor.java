@@ -11,7 +11,7 @@ public class Executor {
         scopes = new ArrayDeque<>();
     }
 
-    public void run() {
+    public void run(Procedure procedure) {
         procedure.execute();
     }
 

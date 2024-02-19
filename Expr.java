@@ -1,7 +1,7 @@
 public class Expr {
 
     Term term;
-    char operator;
+    Character operator;
     Expr expr;
 
     /**
@@ -35,8 +35,18 @@ public class Expr {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
-        term.check();
-        if (expr != null) expr.check();
+    int execute() {
+
+        int value = term.execute();
+
+        if (operator != null) {
+            if (operator == '+') {
+                value += expr.execute();
+            } else {
+                value -= expr.execute();
+            }
+        } 
+        
+        return value;
     }
 }

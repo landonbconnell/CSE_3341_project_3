@@ -34,8 +34,8 @@ public class Cmpr {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
-        expr1.check();
-        expr2.check();
+    void execute() {
+        expr1.execute();
+        expr2.execute();
     }
 }
