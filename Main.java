@@ -10,7 +10,7 @@ class Main {
     public static void main(String[] args) {
         // Instantiate Parser and Semantic Checker.
         parser = new Parser(args[0]);
-        executor = new Executor();
+        executor = new Executor(args[1]);
 
         // Run the parser to generate the parse tree.
         parser.run();

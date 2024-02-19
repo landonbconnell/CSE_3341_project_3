@@ -2,6 +2,8 @@ public class Factor {
 
     String identifier;
     Integer constant;
+    boolean isObject;
+    boolean isExpr;
     Expr expr;
 
     /**
@@ -20,6 +22,8 @@ public class Factor {
 
             // id [ <expr> ]
             if (Parser.currentTokenIs(Core.LBRACE)) {
+                isObject = true;
+
                 Parser.scanner.nextToken();
 
                 expr = new Expr();
@@ -35,6 +39,8 @@ public class Factor {
 
         // ( <expr> )
         } else if (Parser.currentTokenIs(Core.LPAREN)) {
+            isExpr = true;
+
             Parser.scanner.nextToken();
 
             expr = new Expr();
@@ -108,8 +114,27 @@ public class Factor {
     int execute() {
         int value = 0;
 
+        // const
         if (constant != null) {
             value = constant;
+
+        // id | id [ <expr> ]
+        } else if (identifier != null) {
+            Variable variable = Executor.getVariable(identifier);
+            if (isObject) {
+                value = variable.obj_value[expr.execute()];
+            } else {
+                value = variable.int_value;
+            }
+
+        // ( <expr> )
+        } else if (isExpr) {
+            value = expr.execute();
+
+        // in()
+        } else {
+            value = Executor.in.getConst();
+            Executor.in.nextToken();
         }
 
         return value;

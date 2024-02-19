@@ -6,9 +6,11 @@ import java.util.Set;
 
 public class Executor {
     public static Deque<Set<Variable>> scopes;
+    public static Scanner in;
 
-    public Executor() {
+    public Executor(String input) {
         scopes = new ArrayDeque<>();
+        in = new Scanner(input);
     }
 
     public void run(Procedure procedure) {
