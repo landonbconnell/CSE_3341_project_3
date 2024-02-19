@@ -46,18 +46,18 @@ public class Procedure {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
+    void execute() {
     
         // Pushing global scope
-        SemanticChecker.pushNewScope();
+        Executor.pushNewScope();
 
         if (decl_seq != null) {
-            decl_seq.check();
+            decl_seq.execute();
         }
         
         // Pushing main-body scope
-        SemanticChecker.pushNewScope();
+        Executor.pushNewScope();
         
-        stmt_seq.check();
+        stmt_seq.execute();
     }
 }

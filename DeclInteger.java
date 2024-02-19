@@ -27,9 +27,9 @@ public class DeclInteger {
      * Performs a semantic check on the integer declaration, verifying the provided identifier
      * doesn't match another variable in the same scope.
      */ 
-    void check() {
-        if (!SemanticChecker.isInCurrentScope(identifier)) {
-            SemanticChecker.addVariableToCurrentScope(identifier, Type.INTEGER);
+    void execute() {
+        if (!Executor.isInCurrentScope(identifier)) {
+            Executor.addVariableToCurrentScope(identifier, Type.INTEGER);
         } else {
             System.out.println("ERROR: '" + identifier + "' is declared multiple times in the same scope.");
             System.exit(0);

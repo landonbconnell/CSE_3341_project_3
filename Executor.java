@@ -4,16 +4,44 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-/**
- * This class manages variable scopes and declarations for semantic checking, providing functionality
- * to add, check, and retrieve variables within nested scopes.
- */
-public class SemanticChecker {
-
+public class Executor {
     public static Deque<Set<Variable>> scopes;
 
-    public SemanticChecker() {
+    public Executor() {
         scopes = new ArrayDeque<>();
+    }
+
+    public void run() {
+        procedure.execute();
+    }
+
+    public static Set<Variable> getGlobalScope() {
+        return scopes.peekLast();
+    }
+
+    /**
+     * Pushes a new scope to the top of the scope stack.
+     */
+    public static void pushNewScope() {
+        scopes.addFirst(new HashSet<>());
+    }
+
+    /**
+     * Pops the most recently added scope off the scope stack.
+     */
+    public static void popScope() {
+        scopes.pop();
+    }
+
+    /**
+     * Adds a new Variable instance to the top-most scope in the scope stack, initializing it
+     * with the name and type provided by the arguments.
+     * 
+     * @param identifier the name of the variable being added to the current scope
+     * @param type the type of the variable being added to the current scope (integer/object)
+     */
+    public static void addVariableToCurrentScope(String identifier, Type type) {
+        scopes.getFirst().add(new Variable(identifier, type));
     }
 
     /**
@@ -68,28 +96,5 @@ public class SemanticChecker {
         return isInCurrentScope;
     }
 
-    /**
-     * Adds a new Variable instance to the top-most scope in the scope stack, initializing it
-     * with the name and type provided by the arguments.
-     * 
-     * @param identifier the name of the variable being added to the current scope
-     * @param type the type of the variable being added to the current scope (integer/object)
-     */
-    public static void addVariableToCurrentScope(String identifier, Type type) {
-        scopes.getFirst().add(new Variable(identifier, type));
-    }
-
-    /**
-     * Pushes a new scope to the top of the scope stack.
-     */
-    public static void pushNewScope() {
-        scopes.addFirst(new HashSet<>());
-    }
-
-    /**
-     * Pops the most recently added scope off the scope stack.
-     */
-    public static void popScope() {
-        scopes.pop();
-    }
+    
 }

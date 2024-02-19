@@ -5,18 +5,18 @@
 class Main {
 
     static Parser parser;
-    static SemanticChecker semanticChecker;
+    static Executor executor;
 
     public static void main(String[] args) {
         // Instantiate Parser and Semantic Checker.
         parser = new Parser(args[0]);
-        semanticChecker = new SemanticChecker();
+        executor = new Executor();
 
         // Run the parser to generate the parse tree.
         parser.run();
 
         // Run the semantic checker.
-        semanticChecker.run(parser.procedure);
+        executor.run(parser.procedure);
 
         // Print the program from the parse tree.
         parser.procedure.printer();

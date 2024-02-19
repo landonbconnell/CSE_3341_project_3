@@ -32,11 +32,11 @@ public class Decl {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void check() {
+    void execute() {
         if (decl_int != null) {
-            decl_int.check();
+            decl_int.execute();
         } else {
-            decl_obj.check();
+            decl_obj.execute();
         }
     }
 }

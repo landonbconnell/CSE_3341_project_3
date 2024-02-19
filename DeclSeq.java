@@ -31,10 +31,10 @@ public class DeclSeq {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree.
-    void check() {
-        decl.check();
+    void execute() {
+        decl.execute();
         if (decl_seq != null) {
-            decl_seq.check();
+            decl_seq.execute();
         }
     }
 }
