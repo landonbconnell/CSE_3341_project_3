@@ -1,11 +1,13 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 public class Executor {
-    public static Deque<Set<Variable>> scopes;
+    public static Deque<Map<String, Variable>> scopes;
     public static Scanner in;
 
     public Executor(String input) {
@@ -17,7 +19,7 @@ public class Executor {
         procedure.execute();
     }
 
-    public static Set<Variable> getGlobalScope() {
+    public static Map<String, Variable> getGlobalScope() {
         return scopes.peekLast();
     }
 
@@ -25,7 +27,7 @@ public class Executor {
      * Pushes a new scope to the top of the scope stack.
      */
     public static void pushNewScope() {
-        scopes.addFirst(new HashSet<>());
+        scopes.addFirst(new HashMap<>());
     }
 
     /**
@@ -43,7 +45,7 @@ public class Executor {
      * @param type the type of the variable being added to the current scope (integer/object)
      */
     public static void addVariableToCurrentScope(String identifier, Type type) {
-        scopes.getFirst().add(new Variable(identifier, type));
+        scopes.getFirst().add(new Variable(type));
     }
 
     /**
