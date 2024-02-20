@@ -61,13 +61,13 @@ public class Stmt {
         if (assign != null) {
             assign.check();
         } else if (if_stmt != null) {
-            SemanticChecker.pushNewScope(); // Pushing if-statement scope
-            //if_stmt.check();
-            SemanticChecker.popScope(); // Popping if-statement scope
+            Executor.pushNewScope(); // Pushing if-statement scope
+            if_stmt.execute();
+            Executor.popScope(); // Popping if-statement scope
         } else if (loop != null) {
-            SemanticChecker.pushNewScope(); // Pushing while-loop scope
+            Executor.pushNewScope(); // Pushing while-loop scope
             //loop.check();
-            SemanticChecker.popScope(); // Popping while-loop scope
+            Executor.popScope(); // Popping while-loop scope
         } else if (out != null) {
             out.execute();
         } else if (decl != null) {

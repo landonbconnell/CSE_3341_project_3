@@ -2,8 +2,6 @@ public class Factor {
 
     String identifier;
     Integer constant;
-    boolean isObject;
-    boolean isExpr;
     Expr expr;
 
     /**
@@ -22,8 +20,6 @@ public class Factor {
 
             // id [ <expr> ]
             if (Parser.currentTokenIs(Core.LBRACE)) {
-                isObject = true;
-
                 Parser.scanner.nextToken();
 
                 expr = new Expr();
@@ -39,8 +35,6 @@ public class Factor {
 
         // ( <expr> )
         } else if (Parser.currentTokenIs(Core.LPAREN)) {
-            isExpr = true;
-
             Parser.scanner.nextToken();
 
             expr = new Expr();
@@ -87,29 +81,6 @@ public class Factor {
         }
     }
 
-    // Performs a semantic check on the identifier used as a factor.
-    void check() {
-        // id
-        if (identifier != null) {
-            if (!SemanticChecker.isInScope(identifier)) {
-                System.out.println("ERROR: '" + identifier + "' has not been declared.");
-                System.exit(0);
-            }
-
-            // id [ <expr> ]
-            if (expr != null) {
-                Variable variable = SemanticChecker.getVariable(identifier);
-                if (variable.type != Type.OBJECT) {
-                    System.out.print("ERROR: the statement '" + identifier + "[");
-                    expr.printer();
-                    System.out.print("]' cannot be used on a variable with type 'integer'.");
-
-                    System.exit(0);
-                }
-            }
-        }
-    }
-
     // Performs a semantic check on non-terminals lower in the parse tree
     int execute() {
         int value = 0;
@@ -121,20 +92,38 @@ public class Factor {
         // id | id [ <expr> ]
         } else if (identifier != null) {
             Variable variable = Executor.getVariable(identifier);
-            if (isObject) {
-                value = variable.obj_value[expr.execute()];
-            } else {
+
+            if (variable == null) {
+                System.out.println("ERROR: '" + identifier + "' has not been declared.");
+                System.exit(0);
+            }
+
+            // id
+            if (expr == null) {
                 value = variable.int_value;
+
+            // id [ <expr> ]
+            } else {
+
+                if (variable.type != Type.OBJECT) {
+                    System.out.print("ERROR: the statement '" + identifier + "[");
+                    expr.printer();
+                    System.out.print("]' cannot be used on a variable with type 'integer'.");
+
+                    System.exit(0);
+                }
+
+                value = variable.obj_value[expr.execute()];
             }
 
         // ( <expr> )
-        } else if (isExpr) {
+        } else if (expr != null) {
             value = expr.execute();
 
         // in()
         } else {
-            value = Executor.in.getConst();
-            Executor.in.nextToken();
+            value = Executor.input.getConst();
+            Executor.input.nextToken();
         }
 
         return value;

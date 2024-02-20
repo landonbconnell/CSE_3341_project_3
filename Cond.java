@@ -69,23 +69,35 @@ public class Cond {
     }
 
     // Performs a semantic check on the condition and non-terminals lower in the parse tree
-    void check() {
+    boolean execute() {
 
-        // // [ <cond> ]
-        // if (cmpr == null && modifier == null) {
-        //     cond.check();
+        boolean value = false;
+
+        // [ <cond> ]
+        if (cmpr == null && modifier == null) {
+            value = cond.execute();
         
-        // // <cmpr> | not <cmpr> | <cmpr> or <cond> | <cmpr> and <cond>
-        // } else {
-        //     //<cmpr>
-        //     if (cmpr != null) {
-        //         cmpr.check();
-        //     }
-    
-        //     // not <cmpr> | <cmpr> or <cond> | <cmpr> and <cond>
-        //     if (modifier != null) {
-        //         cond.check();
-        //     }
-        // }
+        // <cmpr> | not <cmpr> | <cmpr> or <cond> | <cmpr> and <cond>
+        } else {
+            if (modifier != null) {
+                switch (modifier) {
+                    case "not":
+                        value = !cond.execute();
+                        break;
+                    case "and":
+                        value = cmpr.execute() && cond.execute();
+                        break;
+                    case "or":
+                        value = cmpr.execute() || cond.execute();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                value = cmpr.execute();
+            }
+        }
+
+        return value;
     }
 }

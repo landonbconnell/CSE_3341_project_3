@@ -1,18 +1,16 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public class Executor {
     public static Deque<Map<String, Variable>> scopes;
-    public static Scanner in;
+    public static Scanner input;
 
-    public Executor(String input) {
+    public Executor(String inputFilePath) {
         scopes = new ArrayDeque<>();
-        in = new Scanner(input);
+        input = new Scanner(inputFilePath);
     }
 
     public void run(Procedure procedure) {
@@ -45,7 +43,7 @@ public class Executor {
      * @param type the type of the variable being added to the current scope (integer/object)
      */
     public static void addVariableToCurrentScope(String identifier, Type type) {
-        scopes.getFirst().add(new Variable(type));
+        scopes.getFirst().put(identifier, new Variable(type));
     }
 
     /**
@@ -57,14 +55,14 @@ public class Executor {
      */
     public static Variable getVariable(String identifier) {
         Variable variable = null;
-        Iterator<Set<Variable>> scopeIterator = scopes.iterator();
+        Iterator<Map<String, Variable>> it = scopes.iterator();
         
-        while (scopeIterator.hasNext()) {
-            Iterator<Variable> variableIterator = scopeIterator.next().iterator();
+        while (it.hasNext()) {
+            Map<String, Variable> currentScope = it.next();
 
-            while (variableIterator.hasNext()) {
-                Variable currentVariable = variableIterator.next();
-                if (currentVariable.identifier.equals(identifier)) variable = currentVariable;
+            if (currentScope.containsKey(identifier)) {
+                variable = currentScope.get(identifier);
+                break;
             }
         }
 
@@ -88,17 +86,6 @@ public class Executor {
      * @return true if the variable has been declared in the current scope, false otherwise.
      */
     public static boolean isInCurrentScope(String identifier) {
-        boolean isInCurrentScope = false;
-        Set<Variable> currentScope = scopes.peekFirst();
-        Iterator<Variable> it = currentScope.iterator();
-
-        while (it.hasNext()) {
-            Variable variable = it.next();
-            if (variable.identifier.equals(identifier)) isInCurrentScope = true;
-        }
-
-        return isInCurrentScope;
+        return scopes.peekFirst().containsKey(identifier);
     }
-
-    
 }

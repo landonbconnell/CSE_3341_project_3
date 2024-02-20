@@ -34,8 +34,11 @@ public class Cmpr {
     }
 
     // Performs a semantic check on non-terminals lower in the parse tree
-    void execute() {
-        expr1.execute();
-        expr2.execute();
+    boolean execute() {
+        if (comparator.equals("==")) {
+            return expr1.execute() == expr2.execute();
+        } else {
+            return expr1.execute() < expr2.execute();
+        }
     }
 }
