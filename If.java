@@ -48,6 +48,7 @@ public class If {
 
     // Performs a semantic check on non-terminals lower in the parse tree
     void execute() {
+
         if (cond.execute()) {
             stmt_seq1.execute();
         } else if (stmt_seq2 != null) {

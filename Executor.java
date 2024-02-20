@@ -6,10 +6,12 @@ import java.util.Map;
 
 public class Executor {
     public static Deque<Map<String, Variable>> scopes;
+    public static Deque<Scope> scopeTypes;
     public static Scanner input;
-
+    
     public Executor(String inputFilePath) {
         scopes = new ArrayDeque<>();
+        scopeTypes = new ArrayDeque<>();
         input = new Scanner(inputFilePath);
     }
 
@@ -24,7 +26,8 @@ public class Executor {
     /**
      * Pushes a new scope to the top of the scope stack.
      */
-    public static void pushNewScope() {
+    public static void pushNewScope(Scope scopeType) {
+        scopeTypes.addFirst(scopeType);
         scopes.addFirst(new HashMap<>());
     }
 
@@ -32,7 +35,11 @@ public class Executor {
      * Pops the most recently added scope off the scope stack.
      */
     public static void popScope() {
-        scopes.pop();
+        scopeTypes.pop();
+    }
+
+    public static Scope currentScopeType() {
+        return scopeTypes.peekFirst();
     }
 
     /**

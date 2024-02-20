@@ -31,8 +31,10 @@ public class DeclObj {
         if (!Executor.isInCurrentScope(identifier)) {
             Executor.addVariableToCurrentScope(identifier, Type.OBJECT);
         } else {
-            System.out.println("ERROR: " + identifier + " already declared current in scope.");
-            System.exit(0);
+            if (Executor.currentScopeType() != Scope.LOOP) {
+                System.out.println("ERROR: " + identifier + " already declared current in scope.");
+                System.exit(0);
+            }
         }
     }
 }

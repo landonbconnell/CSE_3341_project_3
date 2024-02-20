@@ -7,7 +7,7 @@ begin
 	if x == y then
 		integer x;
 		x = 0;
-		if z < y then
+		if x < y then
 			x = 10;
 		end
 	else

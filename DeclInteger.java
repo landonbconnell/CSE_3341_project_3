@@ -31,8 +31,10 @@ public class DeclInteger {
         if (!Executor.isInCurrentScope(identifier)) {
             Executor.addVariableToCurrentScope(identifier, Type.INTEGER);
         } else {
-            System.out.println("ERROR: '" + identifier + "' is declared multiple times in the same scope.");
-            System.exit(0);
+            if (Executor.currentScopeType() != Scope.LOOP) {
+                System.out.println("ERROR: " + identifier + " already declared current in scope.");
+                System.exit(0);
+            }
         }
     }
 }

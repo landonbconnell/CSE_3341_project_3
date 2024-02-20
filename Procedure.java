@@ -49,14 +49,14 @@ public class Procedure {
     void execute() {
     
         // Pushing global scope
-        Executor.pushNewScope();
+        Executor.pushNewScope(Scope.GLOBAL);
 
         if (decl_seq != null) {
             decl_seq.execute();
         }
         
         // Pushing main-body scope
-        Executor.pushNewScope();
+        Executor.pushNewScope(Scope.LOCAL);
         
         stmt_seq.execute();
     }

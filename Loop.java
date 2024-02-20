@@ -34,8 +34,9 @@ public class Loop {
     }
 
     // // Performs a semantic check on non-terminals lower in the parse tree
-    // void check() {
-    //     cond.check();
-    //     stmt_seq.check();
-    // }
+    void execute() {
+        while (cond.execute()) {
+            stmt_seq.execute();
+        }
+    }
 }

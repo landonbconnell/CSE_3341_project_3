@@ -97,64 +97,66 @@ public class Assign {
     }
 
     // Performs semantic checks on the assignment statement and non-terminals lower in the parse tree.
-    void check() {
+    void execute() {
 
-    //     if (!SemanticChecker.isInScope(identifier1)) {
-    //         System.out.println("ERROR: '" + identifier1 + "' has not been declared.");
-    //         System.exit(0);
-    //     }
+        if (!Executor.isInScope(identifier1)) {
+            System.out.println("ERROR: '" + identifier1 + "' has not been declared.");
+            System.exit(0);
+        }
 
-    //     Variable variable1 = SemanticChecker.getVariable(identifier1);
+        Variable variable1 = Executor.getVariable(identifier1);
 
-    //     // id = <expr>; | id = new object( <expr> );
-    //     if ((expr1 != null) && (expr2 == null)) {
+        // id = <expr>; | id = new object( <expr> );
+        if ((expr1 != null) && (expr2 == null)) {
 
-    //         // id = <expr>;
-    //         if (!isInstantiatingObject) {
-    //             if (variable1.type != Type.INTEGER) {
-    //                 System.out.println("ERROR: cannot assign an integer to a variable of type 'object'.");
-    //                 System.exit(0);
-    //             }
+            // id = new object( <expr> );
+            if (isInstantiatingObject) {
+                if (variable1.type != Type.OBJECT) {
+                    System.out.println("ERROR: cannot assign an object to a variable of type 'integer'.");
+                    System.exit(0);
+                }
 
-    //         // id = new object( <expr> );
-    //         } else {
-    //             if (variable1.type != Type.OBJECT) {
-    //                 System.out.println("ERROR: cannot assign an object to a variable of type 'integer'.");
-    //                 System.exit(0);
-    //             }
-    //         }
+                variable1.obj_value = new int[expr1.execute()];
 
-    //         expr1.check();
+            // id = <expr>;
+            } else {
+                if (variable1.type == Type.INTEGER) {
+                    variable1.int_value = expr1.execute();
+                } else {
+                    variable1.obj_value[0] = expr1.execute();
+                }    
+            }
 
-    //     // id [ <expr> ] = <expr>;
-    //     } else if ((expr1 != null) && (expr2 != null)) {
+        // id [ <expr> ] = <expr>;
+        } else if ((expr1 != null) && (expr2 != null)) {
 
-    //         if (variable1.type != Type.OBJECT) {
-    //             System.out.print("ERROR: the statement '" + identifier1 + "[");
-    //             expr1.printer();
-    //             System.out.print("] = ");
-    //             expr2.printer();
-    //             System.out.println("' cannot be used on a variable with type 'integer'.");
+            if (variable1.type != Type.OBJECT) {
+                System.out.print("ERROR: the statement '" + identifier1 + "[");
+                expr1.printer();
+                System.out.print("] = ");
+                expr2.printer();
+                System.out.println("' cannot be used on a variable with type 'integer'.");
 
-    //             System.exit(0);
-    //         }
+                System.exit(0);
+            }
 
-    //         expr1.check();
-    //         expr2.check();
+            variable1.obj_value[expr1.execute()] = expr2.execute();
 
-    //     // id : id;
-    //     } else if (identifier2 != null) {
-    //         if (!SemanticChecker.isInScope(identifier2)) {
-    //             System.out.println("ERROR: '" + identifier2 + "' has not been declared.");
-    //             System.exit(0);
-    //         }
+        // id : id;
+        } else if (identifier2 != null) {
+            if (!Executor.isInScope(identifier2)) {
+                System.out.println("ERROR: '" + identifier2 + "' has not been declared.");
+                System.exit(0);
+            }
 
-    //         Variable variable2 = SemanticChecker.getVariable(identifier2);
+            Variable variable2 = Executor.getVariable(identifier2);
 
-    //         if (variable1.type != Type.OBJECT || variable2.type != Type.OBJECT) {
-    //             System.out.println("ERROR: the statement '" + identifier1 + " : " + identifier2 + "' requires " + identifier1 + " and " + identifier2 + " are both objects.");
-    //             System.exit(0);
-    //         }
-    //     }
+            if (variable1.type != Type.OBJECT || variable2.type != Type.OBJECT) {
+                System.out.println("ERROR: the statement '" + identifier1 + " : " + identifier2 + "' requires " + identifier1 + " and " + identifier2 + " are both objects.");
+                System.exit(0);
+            }
+
+            variable1.obj_value = variable2.obj_value;
+        }
     }
 }

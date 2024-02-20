@@ -84,13 +84,9 @@ public class Factor {
     // Performs a semantic check on non-terminals lower in the parse tree
     int execute() {
         int value = 0;
-
-        // const
-        if (constant != null) {
-            value = constant;
-
+        
         // id | id [ <expr> ]
-        } else if (identifier != null) {
+        if (identifier != null) {
             Variable variable = Executor.getVariable(identifier);
 
             if (variable == null) {
@@ -100,8 +96,12 @@ public class Factor {
 
             // id
             if (expr == null) {
-                value = variable.int_value;
-
+                if (variable.type == Type.INTEGER) {
+                    value = variable.int_value;
+                } else {
+                    value = variable.obj_value[0];
+                }
+            
             // id [ <expr> ]
             } else {
 
@@ -115,6 +115,10 @@ public class Factor {
 
                 value = variable.obj_value[expr.execute()];
             }
+        
+        // const
+        } else if (constant != null) {
+            value = constant;
 
         // ( <expr> )
         } else if (expr != null) {
