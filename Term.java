@@ -33,11 +33,10 @@ public class Term {
         }
     }
 
-    // Performs a semantic check on non-terminals lower in the parse tree
     int execute() {
 
         int value = factor.execute();
-
+        
         if (operator != null) {
             if (operator == '*') {
                 value *= term.execute();

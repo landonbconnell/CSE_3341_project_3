@@ -23,10 +23,6 @@ public class DeclInteger {
         System.out.println("\tinteger " + identifier + ";");
     }
 
-    /**
-     * Performs a semantic check on the integer declaration, verifying the provided identifier
-     * doesn't match another variable in the same scope.
-     */ 
     void execute() {
         if (!Executor.isInCurrentScope(identifier)) {
             Executor.addVariableToCurrentScope(identifier, Type.INTEGER);

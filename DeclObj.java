@@ -23,10 +23,6 @@ public class DeclObj {
         System.out.println("\tobject " + identifier + ";");
     }
 
-    /**
-     * Performs a semantic check on the object declaration, verifying the provided identifier
-     * doesn't match another variable in the same scope.
-     */ 
     void execute() {
         if (!Executor.isInCurrentScope(identifier)) {
             Executor.addVariableToCurrentScope(identifier, Type.OBJECT);

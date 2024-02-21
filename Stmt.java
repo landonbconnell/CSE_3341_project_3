@@ -56,7 +56,6 @@ public class Stmt {
         }
     }
 
-    // Performs a semantic check on non-terminals lower in the parse tree
     void execute() {
         if (assign != null) {
             assign.execute();

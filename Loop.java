@@ -33,7 +33,6 @@ public class Loop {
         System.out.println("end");
     }
 
-    // // Performs a semantic check on non-terminals lower in the parse tree
     void execute() {
         while (cond.execute()) {
             stmt_seq.execute();

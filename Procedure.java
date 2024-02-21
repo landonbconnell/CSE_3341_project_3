@@ -45,7 +45,6 @@ public class Procedure {
         System.out.println("end");
     }
 
-    // Performs a semantic check on non-terminals lower in the parse tree
     void execute() {
     
         // Pushing global scope

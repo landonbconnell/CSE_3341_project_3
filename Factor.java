@@ -81,7 +81,6 @@ public class Factor {
         }
     }
 
-    // Performs a semantic check on non-terminals lower in the parse tree
     int execute() {
         int value = 0;
         

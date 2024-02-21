@@ -70,7 +70,6 @@ public class Cond {
         }
     }
 
-    // Performs a semantic check on the condition and non-terminals lower in the parse tree
     boolean execute() {
 
         boolean value = false;

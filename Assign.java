@@ -96,7 +96,6 @@ public class Assign {
         }
     }
 
-    // Performs semantic checks on the assignment statement and non-terminals lower in the parse tree.
     void execute() {
 
         if (!Executor.isInScope(identifier1)) {

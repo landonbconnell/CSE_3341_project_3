@@ -23,7 +23,6 @@ public class Out {
         System.out.println(");");
     }
 
-    // Performs a semantic check on a non-terminal lower in the parse tree.
     void execute() {
         int value = expr.execute();
         System.out.println(value);

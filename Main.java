@@ -15,7 +15,7 @@ class Main {
         // Run the parser to generate the parse tree.
         parser.run();
 
-        // Run the semantic checker.
+        // Execute the program
         executor.run(parser.procedure);
     }
 }
