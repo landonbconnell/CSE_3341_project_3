@@ -36,12 +36,19 @@ public class Term {
     int execute() {
 
         int value = factor.execute();
-        
+
         if (operator != null) {
             if (operator == '*') {
                 value *= term.execute();
             } else {
-                value /= term.execute();
+                int divisor = term.execute();
+
+                if (divisor == 0) {
+                    System.out.println("ERROR: division by 0.");
+                    System.exit(0);
+                }
+
+                value /= divisor;
             }
         } 
         

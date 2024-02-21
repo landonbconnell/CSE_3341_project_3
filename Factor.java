@@ -125,6 +125,10 @@ public class Factor {
 
         // in()
         } else {
+            if (Executor.input.currentToken() == Core.EOS) {
+                System.out.println("ERROR: attempted to read past end-of-file.");
+                System.exit(0);
+            }
             value = Executor.input.getConst();
             Executor.input.nextToken();
         }

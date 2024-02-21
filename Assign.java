@@ -122,6 +122,10 @@ public class Assign {
                 if (variable1.type == Type.INTEGER) {
                     variable1.int_value = expr1.execute();
                 } else {
+                    if (variable1.obj_value == null) {
+                        System.out.println("ERROR: cannot perform assignment on a null object variable.");
+                        System.exit(0);
+                    }
                     variable1.obj_value[0] = expr1.execute();
                 }    
             }
@@ -139,7 +143,14 @@ public class Assign {
                 System.exit(0);
             }
 
-            variable1.obj_value[expr1.execute()] = expr2.execute();
+            int index = expr1.execute();
+
+            if (index >= variable1.obj_value.length) {
+                System.out.println("ERROR: attempted to access an out-of-bounds index.");
+                System.exit(0);
+            }
+
+            variable1.obj_value[index] = expr2.execute();
 
         // id : id;
         } else if (identifier2 != null) {
