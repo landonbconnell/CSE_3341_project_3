@@ -38,6 +38,8 @@ public class Cond {
             if (Parser.currentTokenIs(Core.OR) || Parser.currentTokenIs(Core.AND)) {
                 modifier = Parser.currentTokenIs(Core.OR) ? "or" : "and";
 
+                Parser.scanner.nextToken();
+
                 cond = new Cond();
                 cond.parse();
             }

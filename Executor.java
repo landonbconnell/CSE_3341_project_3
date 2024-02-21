@@ -3,6 +3,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class Executor {
     public static Deque<Map<String, Variable>> scopes;
@@ -13,6 +14,32 @@ public class Executor {
         scopes = new ArrayDeque<>();
         scopeTypes = new ArrayDeque<>();
         input = new Scanner(inputFilePath);
+    }
+
+    public static void printScopes() {
+        Iterator<Map<String, Variable>> scopeIterator = scopes.iterator();
+        System.out.println("START");
+        while (scopeIterator.hasNext()) {
+            Map<String, Variable> currentScope = scopeIterator.next();
+            Set<Map.Entry<String, Variable>> entries = currentScope.entrySet();
+
+            Iterator<Map.Entry<String, Variable>> entryIterator = entries.iterator();
+
+            System.out.println("---------------------------");
+            while (entryIterator.hasNext()) {
+                Map.Entry<String, Variable> entry = entryIterator.next();
+                System.out.print(entry.getKey() + " => ");
+                Variable value = entry.getValue();
+                if (value.type == Type.INTEGER) {
+                    System.out.print(value.int_value + ", ");
+                } else {
+                    System.out.print(value.obj_value + ", ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("---------------------------");
+        System.out.println("END");
     }
 
     public void run(Procedure procedure) {
@@ -36,6 +63,7 @@ public class Executor {
      */
     public static void popScope() {
         scopeTypes.pop();
+        scopes.pop();
     }
 
     public static Scope currentScopeType() {
