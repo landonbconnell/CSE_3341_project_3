@@ -29,6 +29,7 @@ public class StmtSeq {
         }
     }
 
+    // Executes a sequence of statements
     void execute() {
         stmt.execute();
         if (stmt_seq != null) {

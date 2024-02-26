@@ -23,6 +23,7 @@ public class Out {
         System.out.println(");");
     }
 
+    // Prints the integer value of an expression to the console
     void execute() {
         int value = expr.execute();
         System.out.println(value);

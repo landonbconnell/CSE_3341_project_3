@@ -31,6 +31,7 @@ public class Decl {
         }
     }
 
+    // Executes a declaration statement
     void execute() {
         if (decl_int != null) {
             decl_int.execute();

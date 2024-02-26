@@ -30,6 +30,7 @@ public class DeclSeq {
         }
     }
 
+    // Executes a sequence of declaration statements
     void execute() {
         decl.execute();
         if (decl_seq != null) {

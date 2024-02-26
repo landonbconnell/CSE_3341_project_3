@@ -33,6 +33,7 @@ public class Term {
         }
     }
 
+    // Evaluates a term expression and returns its integer value
     int execute() {
 
         int value = factor.execute();

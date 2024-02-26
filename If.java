@@ -46,6 +46,7 @@ public class If {
         System.out.println("end");
     }
 
+    // Executes an if or if-else statement
     void execute() {
         if (cond.execute()) {
             stmt_seq1.execute();

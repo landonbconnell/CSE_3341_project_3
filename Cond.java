@@ -70,6 +70,7 @@ public class Cond {
         }
     }
 
+    // Evaluates the condition expression and returns a boolean
     boolean execute() {
 
         boolean value = false;

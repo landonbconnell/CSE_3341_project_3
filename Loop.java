@@ -33,6 +33,7 @@ public class Loop {
         System.out.println("end");
     }
 
+    // Executes a sequence of statements until some condition evalues to false
     void execute() {
         while (cond.execute()) {
             stmt_seq.execute();

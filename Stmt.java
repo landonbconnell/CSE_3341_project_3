@@ -56,6 +56,7 @@ public class Stmt {
         }
     }
 
+    // Executes a statement depending on the state of the parse tree
     void execute() {
         if (assign != null) {
             assign.execute();

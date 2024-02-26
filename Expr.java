@@ -34,6 +34,7 @@ public class Expr {
         }
     }
 
+    // Evaluates an expression and returns its integer value
     int execute() {
 
         int value = term.execute();

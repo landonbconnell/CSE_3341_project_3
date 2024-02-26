@@ -96,6 +96,7 @@ public class Assign {
         }
     }
 
+    // Executes an assignment statement
     void execute() {
 
         if (!Executor.isInScope(identifier1)) {

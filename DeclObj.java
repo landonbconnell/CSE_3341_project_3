@@ -23,6 +23,7 @@ public class DeclObj {
         System.out.println("\tobject " + identifier + ";");
     }
 
+    // Executes an object declaration statement
     void execute() {
         if (!Executor.isInCurrentScope(identifier)) {
             Executor.addVariableToCurrentScope(identifier, Type.OBJECT);

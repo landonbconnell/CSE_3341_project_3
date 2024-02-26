@@ -3,9 +3,13 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
+/**
+ * Inititates the execution of the program created by the Parser, and
+ * contains various methods for using and managing the scope stack.
+ */
 public class Executor {
+    
     public static Deque<Map<String, Variable>> scopes;
     public static Deque<Scope> scopeTypes;
     public static Scanner input;
@@ -16,42 +20,17 @@ public class Executor {
         input = new Scanner(inputFilePath);
     }
 
-    public static void printScopes() {
-        Iterator<Map<String, Variable>> scopeIterator = scopes.iterator();
-        System.out.println("START");
-        while (scopeIterator.hasNext()) {
-            Map<String, Variable> currentScope = scopeIterator.next();
-            Set<Map.Entry<String, Variable>> entries = currentScope.entrySet();
-
-            Iterator<Map.Entry<String, Variable>> entryIterator = entries.iterator();
-
-            System.out.println("---------------------------");
-            while (entryIterator.hasNext()) {
-                Map.Entry<String, Variable> entry = entryIterator.next();
-                System.out.print(entry.getKey() + " => ");
-                Variable value = entry.getValue();
-                if (value.type == Type.INTEGER) {
-                    System.out.print(value.int_value + ", ");
-                } else {
-                    System.out.print(value.obj_value + ", ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("---------------------------");
-        System.out.println("END");
-    }
-
+    /**
+     * Starts the execution of the program defined by the parse tree
+     * @param procedure the top-level object in the parse tree
+     */
     public void run(Procedure procedure) {
         procedure.execute();
     }
 
-    public static Map<String, Variable> getGlobalScope() {
-        return scopes.peekLast();
-    }
-
     /**
      * Pushes a new scope to the top of the scope stack.
+     * @param scopeType the type of scope being pushed onto the scope stack (global, local, loop, or if-statement)
      */
     public static void pushNewScope(Scope scopeType) {
         scopeTypes.addFirst(scopeType);
@@ -64,10 +43,6 @@ public class Executor {
     public static void popScope() {
         scopeTypes.pop();
         scopes.pop();
-    }
-
-    public static Scope currentScopeType() {
-        return scopeTypes.peekFirst();
     }
 
     /**
@@ -122,5 +97,19 @@ public class Executor {
      */
     public static boolean isInCurrentScope(String identifier) {
         return scopes.peekFirst().containsKey(identifier);
+    }
+
+    /**
+     * @return a reference to the global scope
+     */
+    public static Map<String, Variable> getGlobalScope() {
+        return scopes.peekLast();
+    }
+
+    /**
+     * @returns a Scope enum that tells what the current scope type is (global, local, loop, or if-statement)
+     */
+    public static Scope currentScopeType() {
+        return scopeTypes.peekFirst();
     }
 }

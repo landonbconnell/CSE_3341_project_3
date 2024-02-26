@@ -81,6 +81,7 @@ public class Factor {
         }
     }
 
+    // Evaluates a factor expression and returns its integer value
     int execute() {
         int value = 0;
         

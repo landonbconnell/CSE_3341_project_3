@@ -23,6 +23,7 @@ public class DeclInteger {
         System.out.println("\tinteger " + identifier + ";");
     }
 
+    // Executes an integer declaration statement
     void execute() {
         if (!Executor.isInCurrentScope(identifier)) {
             Executor.addVariableToCurrentScope(identifier, Type.INTEGER);

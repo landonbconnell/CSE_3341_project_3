@@ -33,6 +33,7 @@ public class Cmpr {
         expr2.printer();
     }
 
+    // Evaluates the comparison expression and returns a boolean.
     boolean execute() {
         if (comparator.equals("==")) {
             return expr1.execute() == expr2.execute();
