@@ -27,4 +27,28 @@ Term.java - Has code for parsing, printing, and executing on the <term> non-term
 Type.java - A file containing enums symbolizing valid Core language variable types (integer and object).
 Variable.java - A class defining a "Variable" object which contains 'type' and 'int/object_value' members.
 
+Special Features:
+
+Interpreter Design:
+
+My old SemanticChecker class already had methods for managing scopes and retrieving variables from it, and each of the 
+.check() methods in the non-terminal classes already contained code to determine the next step in the production. Therefore,
+to implement the Executor, I just had to make some slight modifications to the SemanticChecker class and .check() methods.
+
+For the declaration sequence, each declaration resulted in a new variable being added to the topmost scope in the stack.
+
+For each assignment statement, the right-hand-side was evaluated, then stored in the int_value or obj_value field, depending on its type.
+
+For the if statement, a condition was evaluated and if it was true, the first statement sequence was executed.
+Otherwise, if there was an else clause, the second statement was executed.
+
+For the loop, a statement sequence was executed until the supplied condition evaluated to false.
+
+For the out statement, an expression was evaluated then printed to the screen.
+
+
+
+
+Interpreter Testing and Bugs:
+
 
